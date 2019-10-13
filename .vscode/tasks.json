@@ -1,0 +1,46 @@
+{
+    "version": "2.0.0",
+    "tasks":[
+        {
+            "label":"Copy",
+            "command":"copy",
+            "type": "shell",
+            "args":[
+                "${fileBasename}",
+                "E:\\VscodeTemp\\${fileBasename}"
+            ]
+        },
+        {
+            "label": "Build",
+            "command": "g++",
+            "args": [
+                "-g",
+                "E:\\VscodeTemp\\${fileBasename}",//源码路径
+                "-o",
+                "E:\\VscodeTemp\\${fileBasenameNoExtension}.exe",
+                "-std=c++11"
+            ], // 编译命令参数
+            "problemMatcher": {
+                "owner": "cpp",
+                "fileLocation": [
+                    "relative",
+                    "\\"
+                ],
+                "pattern": {
+                    "regexp": "^(.*):(\\d+):(\\d+):\\s+(warning|error):\\s+(.*)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                    "severity": 4,
+                    "message": 5
+                }
+            }
+        },
+        {
+            "label":"Copy and Build",
+            "dependsOn":["Copy","Build"],
+            "args":["-B","Copy","Build"],
+        }
+    ],
+    
+}
